@@ -1,0 +1,10 @@
+########################################## CHRONOLABS COOPERATIVE ############################
+## 																							##
+##   You have to have all peers you are working with in this file also for callback peers   ##
+##   Otherwise they will not be accepted as a local callback instanciated host source!!    	##
+## 																							##
+## 	 You must list all peered system multilaterally in all cases of deployment of api!		##
+## 																							##
+########################################## CHRONOLABS COOPERATIVE ############################
+http://ping.labs.coop
+##: File End :##: labs.coop :##

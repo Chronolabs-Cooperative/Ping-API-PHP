@@ -1,0 +1,28 @@
+## Redirect to Force Secure SSL - Uncomment by removing # when in use!!
+##
+#RewriteEngine On
+#RewriteCond %{SERVER_PORT} !^443$
+#RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R,L=301]
+##
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+## Callback for peers Pinging Services
+RewriteRule ^([a-z0-9]{2})/([0-9\-]+)/([0-9\-]+)/([0-9]+)/(.*?)/(.*?)/(callback|return).api 			callback.php?version=$1&bytes=$2&delay=$3&ttl=$4&ping=$5&output=$6&peer=$7 	[L,NC,QSA]
+RewriteRule ^([a-z0-9]{2})/([0-9\-]+)/([0-9]+)/(.*?)/(.*?)/(callback|return).api 						callback.php?version=$1&delay=$2&ttl=$3&ping=$4&ouput=$5&peer=$6  			[L,NC,QSA]
+RewriteRule ^([a-z0-9]{2})/([0-9]+)/(.*?)/(.*?)/(callback|return).api 									callback.php?version=$1&ttl=$2&ping=$3&output=$4&peer=$5  					[L,NC,QSA]
+RewriteRule ^([a-z0-9]{2})/(.*?)/(.*?)/(callback|return).api 											callback.php?version=$1&ping=$2&output=$3&peer=$4  							[L,NC,QSA]
+
+## Callback for result local or/and peers services by result returned in $_POST to url
+RewriteRule ^([a-z0-9]{2})/([0-9\-]+)/([0-9\-]+)/([0-9]+)/(.*?)/(peers|local).api?callback=(.*?) 		index.php?version=$1&bytes=$2&delay=$3&ttl=$4&ping=$5&output=$6&callback=$7 [L,NC,QSA]
+RewriteRule ^([a-z0-9]{2})/([0-9\-]+)/([0-9]+)/(.*?)/(peers|local).api?callback=(.*?) 					index.php?version=$1&delay=$2&ttl=$3&ping=$4&ouput=$5&callback=$6  			[L,NC,QSA]
+RewriteRule ^([a-z0-9]{2})/([0-9]+)/(.*?)/(peers|local).api?callback=(.*?) 								index.php?version=$1&ttl=$2&ping=$3&output=$4&callback=$5  					[L,NC,QSA]
+RewriteRule ^([a-z0-9]{2})/(.*?)/(peers|local).api?callback=(.*?) 										index.php?version=$1&ping=$2&output=$3&callback=$4  						[L,NC,QSA]
+
+## Direct Call for result output
+RewriteRule ^([a-z0-9]{2})/([0-9\-]+)/([0-9\-]+)/([0-9]+)/(.*?)/(json|xml|serial).api 					index.php?version=$1&bytes=$2&delay=$3&ttl=$4&ping=$5&output=$6 			[L,NC,QSA]
+RewriteRule ^([a-z0-9]{2})/([0-9\-]+)/([0-9]+)/(.*?)/(json|xml|serial).api 								index.php?version=$1&delay=$2&ttl=$3&ping=$4&ouput=$5  						[L,NC,QSA]
+RewriteRule ^([a-z0-9]{2})/([0-9]+)/(.*?)/(json|xml|serial).api 										index.php?version=$1&ttl=$2&ping=$3&output=$4  								[L,NC,QSA]
+RewriteRule ^([a-z0-9]{2})/(.*?)/(json|xml|serial).api 													index.php?version=$1&ping=$2&output=$3  									[L,NC,QSA]
